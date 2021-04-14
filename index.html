@@ -1,13 +1,15 @@
-Hello World
 
 <script>
-var regex = "code=([^&]*)";
-var url = window.location.href;
-// var url = "https://yeodongh.github.io/?code=AQBI7OUSrW17w6OcBklXps-PMJwq23Ppbu6x1WRTrD5_yNrHO8qcuded8qCqkt0F3LJ30K9rQLh4lYgRWnE3gu1gdVqqCN7QRuz2TpNL08sAsLLOfJMC6upgF1CJ_85zHzeUiR9tU_kb3BgM1hOa9pIzqexL9V-Xcw_rvdmIQihHtVQoE-jMAjKCd2mHd24YDhBavjPoD9Hu9qwb28HcapQrLHNVim1F9qYZtt5FC4l8_w#_";
-var param = url.match(regex);
+  var regex = "code=([^&]*)";
+  // var url = window.location.href;
+  var url = "https://yeodongh.github.io/?code=AQBI7OUSrW17w6OcBklXps-PMJwq23Ppbu6x1WRTrD5_yNrHO8qcuded8qCqkt0F3LJ30K9rQLh4lYgRWnE3gu1gdVqqCN7QRuz2TpNL08sAsLLOfJMC6upgF1CJ_85zHzeUiR9tU_kb3BgM1hOa9pIzqexL9V-Xcw_rvdmIQihHtVQoE-jMAjKCd2mHd24YDhBavjPoD9Hu9qwb28HcapQrLHNVim1F9qYZtt5FC4l8_w#_";
+  var param = url.match(regex);
+  var foo;
 
-function sendRequest() {
+  async function sendRequest() {
     var codeValue = param[1];
+    var fetchResult = null;
+    
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("Cookie", "rur=ATN; mid=WboyOQAEAAHse57uOG_ISp9cBYLA; ig_did=2531B32D-EC96-4EF9-9EF4-287729430AF5; ig_nrcb=1; mid=YHWqMAAEAAFG7I9-R1C540zLHY7w; csrftoken=7vRiohOKQ3A8hMCFDjHAgXm8YdpFtjxQ");
@@ -26,14 +28,20 @@ function sendRequest() {
       redirect: 'follow'
     };
 
-    fetch("https://api.instagram.com/oauth/access_token", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-}
+    var req = await fetch("https://api.instagram.com/oauth/access_token", requestOptions)
+        .then(response => response.json())
+        .then((json)=>{return json})
+        .catch((error)=>console.log('error', error));
 
+    return req;
+  }
 
-if(!!param) {
-    sendRequest();
-}
+  async function runFunctionHere() {
+    var res = await sendRequest();
+    console.log('handleResponse', res);
+  };
+
+  if(!!param) {
+    runFunctionHere();
+  }
 </script>
