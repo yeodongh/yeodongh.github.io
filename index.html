@@ -1,4 +1,19 @@
-Hi there!
+<h1>Hi there!</h1>
+<h2 id="loading">The page is loading</h2>
+<div id="gallery">
+</div>
+
+<style>
+  #gallery {
+    max-width: 620px;
+    width: 100%;
+  }
+  #gallery img {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+</style>
 
 <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
 <script>
@@ -88,6 +103,23 @@ Hi there!
     };
   }
 
+  function renderHTML() {
+    var loadingContainer = document.getElementById("loading");
+
+    for(var i=0; i<instaPostObjects.length; i++) {
+      var media_url = instaPostObjects[i].media_url;
+      // var media_url = "https://source.unsplash.com/random/620x620";
+
+      var elem = document.createElement("img");
+      elem.setAttribute("src", media_url);
+      elem.setAttribute("data-insta", JSON.stringify(instaPostObjects[i]));
+      elem.addEventListener('click', clickOnPhoto);
+      document.getElementById("gallery").appendChild(elem);
+    }
+
+    loadingContainer.innerText = "Loaded";
+  }
+
   async function runFunctionHere() {
     var getTokenRes = await getToken();
     var access_token = getTokenRes["access_token"];
@@ -95,6 +127,7 @@ Hi there!
 
     if(!!access_token) {
       var instagramPosts = await getInstagramPosts(access_token);
+      renderHTML();
     }
   };
 
