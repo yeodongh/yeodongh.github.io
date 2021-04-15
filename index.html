@@ -1,5 +1,6 @@
 Hi there!
 
+<script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
 <script>
   var regex = "code=([^&]*)";
   var url = window.location.href;
@@ -39,6 +40,8 @@ Hi there!
 
   async function runFunctionHere() {
     var res = await sendRequest();
+    console.log(res["access_token"]);
+    ThunkableWebviewerExtension.postMessage(res["access_token"]);
     console.log('handleResponse', res);
   };
 
