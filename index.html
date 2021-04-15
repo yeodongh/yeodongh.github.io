@@ -129,7 +129,7 @@
   async function runFunctionHere() {
     var getTokenRes = await getToken();
     var access_token = getTokenRes["access_token"];
-    ThunkableWebviewerExtension.postMessage(res["access_token"]);
+//     ThunkableWebviewerExtension.postMessage(res["access_token"]);
 
     if(!!access_token) {
       var instagramPosts = await getInstagramPosts(access_token);
