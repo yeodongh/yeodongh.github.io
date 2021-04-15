@@ -37,10 +37,65 @@ Hi there!
     return req;
   };
 
+  async function getInstagramPostIds(access_token) {
+    var myHeaders = new Headers();
+    myHeaders.append("Cookie", "ig_did=2531B32D-EC96-4EF9-9EF4-287729430AF5; ig_nrcb=1; mid=YHWqMAAEAAFG7I9-R1C540zLHY7w; csrftoken=7vRiohOKQ3A8hMCFDjHAgXm8YdpFtjxQ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    var req = await fetch("https://graph.instagram.com/me/media?fields=id,caption&limit=4&access_token=" + access_token, requestOptions)
+      .then(response => response.json())
+      .then((json)=>{return json})
+      .catch(error => console.log('error', error));
+
+    return !!req["data"] ? req["data"] : [];
+  };
+
+  function parseInstagramPostIds(instaPostIdsRes) {
+    return instaPostIdsRes.map(function(postObj){
+      insta_id = postObj.id;
+      return insta_id;
+    });
+  };
+
+  async function getPostObjReq(insta_id, access_token) {
+    var myHeaders = new Headers();
+    myHeaders.append("Cookie", "ig_did=2531B32D-EC96-4EF9-9EF4-287729430AF5; ig_nrcb=1; mid=YHWqMAAEAAFG7I9-R1C540zLHY7w; csrftoken=7vRiohOKQ3A8hMCFDjHAgXm8YdpFtjxQ");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    var postObj = await fetch("https://graph.instagram.com/" + insta_id + "?fields=id,media_type,media_url,username,timestamp&access_token=" + access_token, requestOptions)
+      .then(response => response.json())
+      .then((json)=>{return json})
+      .catch(error => console.log('error', error));
+
+    return [...instaPostObjects, postObj];
+  }
+
+  async function getInstagramPosts(access_token) {
+    var instaPostIdsRes = await getInstagramPostIds(access_token);
+    var instaPostIds = parseInstagramPostIds(instaPostIdsRes);
+    for(i=0; i<instaPostIds.length; i++) {
+      instaPostObjects = await getPostObjReq(instaPostIds[i], access_token);
+    };
+  }
+
   async function runFunctionHere() {
     var getTokenRes = await getToken();
     var access_token = getTokenRes["access_token"];
     ThunkableWebviewerExtension.postMessage(res["access_token"]);
+
+    if(!!access_token) {
+      var instagramPosts = await getInstagramPosts(access_token);
+    }
   };
 
   if(!!param) {
