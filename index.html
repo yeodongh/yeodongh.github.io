@@ -103,6 +103,12 @@
     };
   }
 
+  function clickOnPhoto(event) {
+    console.log('hihi', event.target);
+    var instaData = event.target.getAttribute("data-insta");
+    console.log('instaData: ', instaData);
+  };
+
   function renderHTML() {
     var loadingContainer = document.getElementById("loading");
 
