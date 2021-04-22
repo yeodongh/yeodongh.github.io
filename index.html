@@ -127,14 +127,14 @@
   async function runFunctionHere() {
     var getTokenRes = await getToken();
     var access_token = getTokenRes["access_token"];
-    // ThunkableWebviewerExtension.postMessage(res["access_token"]);
+//     ThunkableWebviewerExtension.postMessage(res["access_token"]);
 //     var access_token="IGQVJXNkJndUxUdHNxbWpET2tnSDRQaENIcmNYSEJOek40ZAkV5ZAk9LM3ItSzJ5LXFmOC00UjNpVEhhazdlRnpaOXlZAMDdlUkcxemxFX3I3bThwY0JGUFo5X29WdVp2UW5JWFNBNXlxdUZAQTjlKQlNzYUJnbGxUdHY5d2dN"
 
     if(!!access_token) {
       await getInstagramPosts(access_token);
       renderHTML();
       console.log('instaPostObjects', instaPostObjects); // Insta post array
-
+      ThunkableWebviewerExtension.postMessage(instaPostObjects);
       return instaPostObjects;
     }
   };
