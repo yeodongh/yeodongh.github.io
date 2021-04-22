@@ -28,7 +28,6 @@
     
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    myHeaders.append("Cookie", "rur=ATN; mid=WboyOQAEAAHse57uOG_ISp9cBYLA; ig_did=2531B32D-EC96-4EF9-9EF4-287729430AF5; ig_nrcb=1; mid=YHWqMAAEAAFG7I9-R1C540zLHY7w; csrftoken=7vRiohOKQ3A8hMCFDjHAgXm8YdpFtjxQ");
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", "809870202946028");
@@ -54,7 +53,6 @@
 
   async function getInstagramPostIds(access_token) {
     var myHeaders = new Headers();
-    myHeaders.append("Cookie", "ig_did=2531B32D-EC96-4EF9-9EF4-287729430AF5; ig_nrcb=1; mid=YHWqMAAEAAFG7I9-R1C540zLHY7w; csrftoken=7vRiohOKQ3A8hMCFDjHAgXm8YdpFtjxQ");
 
     var requestOptions = {
       method: 'GET',
