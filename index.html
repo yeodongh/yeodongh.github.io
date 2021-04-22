@@ -124,7 +124,11 @@
     }
 
     loadingContainer.innerText = "Loaded";
-  }
+  };
+
+  function returnPosts(posts) {
+    console.log('posts: ', posts);
+  };
 
   async function runFunctionHere() {
     var getTokenRes = await getToken();
@@ -133,7 +137,8 @@
 
     if(!!access_token) {
       var instagramPosts = await getInstagramPosts(access_token);
-      renderHTML();
+      // renderHTML();
+      returnPosts(instagramPosts);
     }
   };
 
