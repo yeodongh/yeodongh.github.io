@@ -110,33 +110,32 @@
   function renderHTML() {
     var loadingContainer = document.getElementById("loading");
 
-    for(var i=0; i<instaPostObjects.length; i++) {
-      var media_url = instaPostObjects[i].media_url;
-      // var media_url = "https://source.unsplash.com/random/620x620";
+    // for(var i=0; i<instaPostObjects.length; i++) {
+    //   var media_url = instaPostObjects[i].media_url;
+    //   // var media_url = "https://source.unsplash.com/random/620x620";
 
-      var elem = document.createElement("img");
-      elem.setAttribute("src", media_url);
-      elem.setAttribute("data-insta", JSON.stringify(instaPostObjects[i]));
-      elem.addEventListener('click', clickOnPhoto);
-      document.getElementById("gallery").appendChild(elem);
-    }
+    //   var elem = document.createElement("img");
+    //   elem.setAttribute("src", media_url);
+    //   elem.setAttribute("data-insta", JSON.stringify(instaPostObjects[i]));
+    //   elem.addEventListener('click', clickOnPhoto);
+    //   document.getElementById("gallery").appendChild(elem);
+    // }
 
     loadingContainer.innerText = "Loaded";
   };
 
-  function returnPosts(posts) {
-    console.log('posts: ', instaPostObjects);
-  };
-
   async function runFunctionHere() {
-    var getTokenRes = await getToken();
-    var access_token = getTokenRes["access_token"];
-//     ThunkableWebviewerExtension.postMessage(res["access_token"]);
+    // var getTokenRes = await getToken();
+    // var access_token = getTokenRes["access_token"];
+    // ThunkableWebviewerExtension.postMessage(res["access_token"]);
+    var access_token="IGQVJXNkJndUxUdHNxbWpET2tnSDRQaENIcmNYSEJOek40ZAkV5ZAk9LM3ItSzJ5LXFmOC00UjNpVEhhazdlRnpaOXlZAMDdlUkcxemxFX3I3bThwY0JGUFo5X29WdVp2UW5JWFNBNXlxdUZAQTjlKQlNzYUJnbGxUdHY5d2dN"
 
     if(!!access_token) {
-      var instagramPosts = await getInstagramPosts(access_token);
-      // renderHTML();
-      returnPosts();
+      await getInstagramPosts(access_token);
+      renderHTML();
+      console.log('instaPostObjects', instaPostObjects); // Insta post array
+
+      return instaPostObjects;
     }
   };
 
