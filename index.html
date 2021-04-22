@@ -127,7 +127,7 @@
   };
 
   function returnPosts(posts) {
-    console.log('posts: ', posts);
+    console.log('posts: ', instaPostObjects);
   };
 
   async function runFunctionHere() {
@@ -138,7 +138,7 @@
     if(!!access_token) {
       var instagramPosts = await getInstagramPosts(access_token);
       // renderHTML();
-      returnPosts(instagramPosts);
+      returnPosts();
     }
   };
 
