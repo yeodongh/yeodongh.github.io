@@ -133,8 +133,8 @@
     if(!!access_token) {
       await getInstagramPosts(access_token);
       renderHTML();
-      instaPostObjects = JSON.stringify(instaPostObjects);
-      console.log('instaPostStringFiedObjects', instaPostObjects); // Insta post array
+      instaPostObjects = {"posts": instaPostObjects};
+      console.log('instaPostObjects', instaPostObjects); // Insta post array
       ThunkableWebviewerExtension.postMessage(instaPostObjects);
       return instaPostObjects;
     }
