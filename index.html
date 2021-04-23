@@ -134,7 +134,7 @@
       await getInstagramPosts(access_token);
       renderHTML();
       instaPostObjects = JSON.stringify(instaPostObjects);
-      console.log('instaPostObjects', instaPostObjects); // Insta post array
+      console.log('instaPostStringFiedObjects', instaPostObjects); // Insta post array
       ThunkableWebviewerExtension.postMessage(instaPostObjects);
       return instaPostObjects;
     }
