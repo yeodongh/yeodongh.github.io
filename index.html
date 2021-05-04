@@ -23,6 +23,17 @@
   var param = url.match(regex);
   var instaPostObjects = [];
 
+  String.prototype.hashCode = function(str) {
+    var hash = 0, i, chr;
+    if (str.length === 0) return hash;
+    for (i = 0; i < str.length; i++) {
+      chr   = str.charCodeAt(i);
+      hash  = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  };
+
   async function getToken() {
     var codeValue = param[1];
     var fetchResult = null;
@@ -90,6 +101,9 @@
       .then(response => response.json())
       .then((json)=>{return json})
       .catch(error => console.log('error', error));
+
+    var postHash = String.prototype.hashCode(JSON.stringify(postObj));
+    postObj.hash_val = postHash;
 
     return [...instaPostObjects, postObj];
   }
